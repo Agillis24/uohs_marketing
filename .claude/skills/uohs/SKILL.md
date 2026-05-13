@@ -12,8 +12,57 @@ description: >
 # ÚOHS → TENDERIX LinkedIn Post Generator
 
 This skill fetches new ÚOHS decisions, selects the most interesting one for
-procurement practitioners, and produces a ready-to-publish LinkedIn post with
-Canva slide texts. It then creates a GitHub Issue as an archive.
+procurement practitioners, produces a ready-to-publish LinkedIn post with
+Canva slide texts, and creates a GitHub Issue archive — all automatically.
+
+---
+
+## Step 0 — Setup check (run before anything else)
+
+Before starting the analysis, silently verify that GitHub CLI is available
+and authenticated. Do this in the background without asking the user anything.
+
+### 0a — Check if gh CLI is installed
+
+```powershell
+gh --version 2>$null
+```
+
+If the command fails (exit code != 0), install it automatically:
+
+```powershell
+winget install --id GitHub.cli --silent --accept-package-agreements --accept-source-agreements
+```
+
+Wait for installation to complete, then refresh the PATH:
+```powershell
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+```
+
+### 0b — Check if gh CLI is authenticated
+
+```powershell
+gh auth status 2>$null
+```
+
+If not authenticated (exit code != 0), run interactive login:
+```powershell
+gh auth login --web --git-protocol https
+```
+
+This opens a browser window for GitHub authentication. Tell the user:
+"Otevře se prohlížeč pro přihlášení k GitHubu — po přihlášení se sem vraťte
+a analýza pokračuje automaticky." Wait for the command to complete.
+
+### 0c — Ensure the label exists in the repo
+
+```powershell
+gh label create "tip-z-praxe" --repo Agillis24/uohs_marketing --color "6f42c1" --description "Tip z praxe LinkedIn post" 2>$null
+```
+
+Ignore any error here (label may already exist).
+
+---
 
 ## Step 1 — Fetch the list of new decisions
 
@@ -35,7 +84,7 @@ For each new decision (up to 10, newest first), use WebFetch on the detail URL.
 Extract:
 - **PDF URL**: any `href` containing `/download/` or ending in `.pdf`
   → prepend `https://uohs.gov.cz` if relative
-- **č.j.** (číslo jednací): text near "číslo jednací:" 
+- **č.j.** (číslo jednací): text near "číslo jednací:"
 - **sp.zn.** (spisová značka): text near "spisová značka:"
 - **datum**: text near "nabytí pr. moci:"
 - **instance**: "II." if page contains "II. instance", otherwise "I."
@@ -47,15 +96,11 @@ more generalizable legal conclusions.
 ## Step 4 — Get decision content
 
 For each promising decision (prefer II. instance), use WebFetch on the detail
-page URL to extract the full case summary, legal findings, and conclusions.
+page to extract the full case summary, legal findings, and conclusions.
 The ÚOHS detail pages contain rich structured summaries of the legal reasoning.
 
-If the WebFetch summary seems insufficient for a given decision, try fetching
-additional subpages linked from the detail page.
-
-Note: Full PDF text extraction requires Python+pdfplumber or pdftoppm installed
-locally. If available, download the PDF using PowerShell (with SSL bypass for
-Windows PowerShell 5.1):
+Optionally attempt full PDF download for richer text (Windows PowerShell 5.1
+requires SSL bypass):
 
 ```powershell
 add-type @"
@@ -69,20 +114,18 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 Invoke-WebRequest -Uri $pdfUrl -OutFile "$env:TEMP\uohs.pdf" -UserAgent "Mozilla/5.0"
 ```
 
-Then use `anthropic-skills:pdf` to read it. If PDF reading fails, proceed with
-WebFetch summaries — they are usually sufficient for the analysis.
+Then use `anthropic-skills:pdf` to read it. If PDF reading fails, WebFetch
+summaries are sufficient — proceed with those.
 
 ## Step 5 — Select the best decision
 
-Read all extracted texts and apply your legal knowledge to select the ONE
-decision most worth writing about. Look for:
+Apply your legal knowledge to select the ONE decision most worth writing about:
 
 - **Generalizable conclusions** — principles applicable across many procurement
   situations, not just the specific case facts
 - **Practical impact** — rules that zadavatelé or dodavatelé can act on
 - **Key themes**: qualification requirements, evaluation criteria, transparency
-  of selection reports, MNNC (mimořádně nízká nabídková cena), contract
-  modifications, procedural deadlines, scope of review
+  of selection reports, MNNC, contract modifications, procedural deadlines
 
 Avoid decisions that are purely procedural or fact-specific with no broader lesson.
 
@@ -112,8 +155,8 @@ Z tohoto rozhodnutí podle nás plynou pro zadavatelskou praxi zejména:
 hashtag#verejnezakazky hashtag#ZZVZ hashtag#UOHS [2–3 hashtagy k tématu, bez mezery za #] hashtag#TENDERIX
 ```
 
-Language note: Write in professional Czech. The tone is authoritative but
-accessible — think senior procurement lawyer explaining to a colleague.
+Write in professional Czech. Tone: authoritative but accessible — senior
+procurement lawyer explaining to a colleague.
 
 ## Step 7 — Generate Canva slide texts
 
@@ -122,18 +165,18 @@ Extract 3–6 key conclusions as slide quotes. Each slide:
 ```
 ### Slide N
 
-[2–5 vět. Klíčový závěr, zobecnitelný pro praxi. 
+[2–5 vět. Klíčový závěr, zobecnitelný pro praxi.
 **Nejdůležitější části věty tučně** a zbytek normálně.]
 
 *Rozhodnutí předsedy ÚOHS č. j. [čj.], sp. zn.: [sp.zn.] ze dne [datum]:*
 ```
 
-Good slides are punchy and self-contained — a reader who sees only this slide
+Good slides are punchy and self-contained — a reader seeing only this slide
 understands the legal point without reading the full decision.
 
 ## Step 8 — Display output in conversation
 
-Show the results clearly with these sections:
+Show the results with these exact sections:
 
 ---
 📝 **TEXT LINKEDIN PŘÍSPĚVKU**
@@ -149,29 +192,61 @@ Show the results clearly with these sections:
 
 ---
 
-## Step 9 — Update processed decisions (optional)
+## Step 9 — Create GitHub Issue
 
-If the local repo exists at `C:\Users\pocit\uohs_marketing\`, update
-`processed_decisions.json` so the same decision isn't picked next time:
+Create the Issue using the content already displayed in Step 8. Build the
+body as a heredoc and pass it to gh:
 
 ```powershell
-# Read, add new ID, write back
+$date = Get-Date -Format 'dd.MM.yyyy'
+$subject = "[předmět rozhodnutí, max 60 znaků]"
+$title = "Tip z praxe — $date — $subject"
+
+$issueBody = @"
+## 📝 TEXT LINKEDIN PŘÍSPĚVKU
+
+``````
+[sem vložte celý LinkedIn text z Step 6]
+``````
+
+---
+
+## 🖼️ TEXTY PRO CANVA SLIDES
+
+[sem vložte všechny slides z Step 7 ve formátu markdown]
+
+---
+_Vygenerováno: $date — manuální spuštění v Claude Code_
+"@
+
+$issueBody | gh issue create --repo Agillis24/uohs_marketing --title $title --label "tip-z-praxe" --body-file -
+```
+
+After creating, print the Issue URL to the user so they can open it if needed.
+
+## Step 10 — Update processed decisions
+
+Update `C:\Users\pocit\uohs_marketing\processed_decisions.json` with the ID
+of the selected decision:
+
+```powershell
 $file = "C:\Users\pocit\uohs_marketing\processed_decisions.json"
 if (Test-Path $file) {
     $ids = Get-Content $file | ConvertFrom-Json
-    $ids += "[DECISION_ID]"
-    $ids | ConvertTo-Json | Set-Content $file
+    if ($ids -notcontains "[DECISION_ID]") {
+        $ids += "[DECISION_ID]"
+        $ids | ConvertTo-Json | Set-Content $file -Encoding UTF8
+    }
 }
 ```
 
-This is optional — if the file isn't present on this device, the next run
-will simply re-evaluate recent decisions and pick the best one again.
+---
 
 ## Error handling
 
-- If ÚOHS website is unreachable: inform the user and stop
-- If all PDFs fail to download: try WebFetch on the detail pages to get partial
-  text, and proceed with what's available
-- If GitHub Issue creation fails: show the content here anyway and ask the user
-  to create the issue manually
-- If no new decisions found: tell the user and stop
+- **gh not installed / install fails**: inform user, show output, skip Issue
+- **gh auth fails**: ask user to run `gh auth login` once, then retry
+- **ÚOHS website unreachable**: inform the user and stop
+- **No new decisions**: tell the user, stop
+- **All content fetches fail**: tell the user, stop
+- **Issue creation fails**: show output anyway, print error, continue
