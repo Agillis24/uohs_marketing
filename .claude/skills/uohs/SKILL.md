@@ -90,14 +90,12 @@ Extract:
 - **instance**: "II." if page contains "II. instance", otherwise "I."
 - **předmět**: the `<h1>` heading text
 
-Prioritize II. instance decisions (předseda ÚOHS) — they tend to have richer,
-more generalizable legal conclusions.
+Fetch metadata for all new decisions regardless of instance.
 
 ## Step 4 — Get decision content
 
-For each promising decision (prefer II. instance), use WebFetch on the detail
-page to extract the full case summary, legal findings, and conclusions.
-The ÚOHS detail pages contain rich structured summaries of the legal reasoning.
+For each new decision (up to 10), use WebFetch on the detail page to extract
+the full case summary, legal findings, and conclusions.
 
 Optionally attempt full PDF download for richer text (Windows PowerShell 5.1
 requires SSL bypass):
@@ -119,13 +117,19 @@ summaries are sufficient — proceed with those.
 
 ## Step 5 — Select the best decision
 
-Apply your legal knowledge to select the ONE decision most worth writing about:
+Apply your legal knowledge to select the ONE decision most worth writing about.
+Both I. and II. instance decisions are equally eligible — instance alone is not
+a deciding factor. Assess each on its actual content:
 
 - **Generalizable conclusions** — principles applicable across many procurement
   situations, not just the specific case facts
 - **Practical impact** — rules that zadavatelé or dodavatelé can act on
 - **Key themes**: qualification requirements, evaluation criteria, transparency
-  of selection reports, MNNC, contract modifications, procedural deadlines
+  of selection reports, MNNC, contract modifications, procedural deadlines,
+  scope of complaints, use of framework agreements, subcontracting rules
+- **II. instance** is a mild positive signal (final, authoritative ruling) but
+  a strong I. instance decision on a novel or practically important topic
+  easily outweighs a routine II. instance case
 
 Avoid decisions that are purely procedural or fact-specific with no broader lesson.
 
