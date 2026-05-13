@@ -162,6 +162,14 @@ hashtag#verejnezakazky hashtag#ZZVZ hashtag#UOHS [2–3 hashtagy k tématu, bez 
 Write in professional Czech. Tone: authoritative but accessible — senior
 procurement lawyer explaining to a colleague.
 
+**Anonymizace účastníků:** V textu příspěvku ani ve slides neuvádějte konkrétní
+názvy zadavatele, dodavatele, stěžovatele ani jiných účastníků řízení, pokud
+jejich identita není přímo relevantní pro pochopení právního závěru (což bývá
+výjimečně — např. pokud jde o specifický typ zadavatele jako ČNB nebo stát).
+Místo toho používejte obecné pojmy: „zadavatel", „dodavatel", „vybraný
+dodavatel", „navrhovatel", „stěžovatel". Cílem je zobecnitelnost — čtenář se
+má ztotožnit se situací, ne sledovat konkrétní spor konkrétních subjektů.
+
 ## Step 7 — Generate Canva slide texts
 
 Extract 3–6 key conclusions as slide quotes. Each slide:
