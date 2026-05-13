@@ -26,7 +26,7 @@ PROCESSED_FILE = "processed_decisions.json"
 MAX_DECISIONS_TO_ANALYZE = 15  # max nových rozhodnutí za jeden běh
 
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
-GITHUB_MODELS_TOKEN = os.environ["GITHUB_MODELS_TOKEN"]
+GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 GITHUB_REPOSITORY = os.environ["GITHUB_REPOSITORY"]
 
 HEADERS = {
@@ -204,10 +204,10 @@ Odpovídej VŽDY v JSON formátu (bez markdown bloků, čistý JSON):
 
 
 def analyze_with_ai(pdf_text: str, metadata: dict) -> dict:
-    """Pošle text rozhodnutí do GitHub Models API (GPT-4o) a vrátí analýzu."""
+    """Pošle text rozhodnutí do Groq API (Llama 3.3 70B, zdarma) a vrátí analýzu."""
     client = OpenAI(
-        base_url="https://models.inference.ai.azure.com",
-        api_key=GITHUB_MODELS_TOKEN,
+        base_url="https://api.groq.com/openai/v1",
+        api_key=GROQ_API_KEY,
     )
 
     user_prompt = f"""Analyzuj toto rozhodnutí ÚOHS a připrav obsah pro LinkedIn příspěvek TENDERIX:
@@ -224,7 +224,7 @@ URL detailu: {metadata.get('detail_url', 'N/A')}
 --- KONEC TEXTU ---"""
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_prompt},
