@@ -1,1 +1,48 @@
+name: ÚOHS Analyzer — týdenní analýza
 
+on:
+  schedule:
+    # Každé pondělí v 7:00 SEČ (= 6:00 UTC v zimě, 5:00 UTC v létě)
+    # Nastaveno na 6:00 UTC — v létě dorazí ~8:00, v zimě ~7:00
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    # Umožňuje ruční spuštění z GitHubu (záložka Actions → Run workflow)
+
+permissions:
+  issues: write    # potřebujeme vytvořit Issue
+  contents: write  # potřebujeme commitnout processed_decisions.json
+
+jobs:
+  analyze:
+    name: Analyzovat nová rozhodnutí ÚOHS
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repozitáře
+        uses: actions/checkout@v4
+
+      - name: Nastavit Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Nainstalovat závislosti
+        run: pip install -r requirements.txt
+
+      - name: Spustit ÚOHS Analyzer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_MODELS_TOKEN: ${{ secrets.GITHUB_MODELS_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python uohs_analyzer.py
+
+      - name: Uložit stav zpracovaných rozhodnutí
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add processed_decisions.json
+          git diff --staged --quiet \
+            || git commit -m "chore: aktualizace zpracovaných rozhodnutí [skip ci]"
+          git push
