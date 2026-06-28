@@ -184,6 +184,18 @@ hashtag#verejnezakazky hashtag#ZZVZ hashtag#UOHS [2–3 hashtagy k tématu, bez 
 Write in professional Czech. Tone: authoritative but accessible — senior
 procurement lawyer explaining to a colleague.
 
+**Délka — 2500–3000 znaků celkem (LinkedIn limit je 3000, nad ním příspěvek
+nelze publikovat).** Počítejte celý text včetně emoji, hashtagů a odkazu.
+Po napsání draftu si délku skutečně přepočítejte (nehádejte) — vložte text
+do PowerShellu: `("vas text").Length` nebo prostě sečtěte znaky odstavec po
+odstavci. Pokud je text mimo rozsah:
+- **Pod 2500**: rozšiřte odstavec o jádru sporu nebo rozbor závěrů o 1–2 věty
+  s konkrétnějším praktickým dopadem — nepřidávejte vatu, přidejte obsah.
+- **Nad 3000**: zkraťte rozbor (typicky jde zkrátit 2.–3. odstavec, ne úvod
+  ani 📌 body — ty nesou hlavní hodnotu příspěvku) a ověřte znovu.
+Necelujte přesně 3000 — bezpečné rozpětí je 2700–2900, aby drobné úpravy
+uživatele při kopírování do LinkedInu nepřekročily limit.
+
 **Anonymizace účastníků:** V textu příspěvku ani ve slides neuvádějte konkrétní
 názvy zadavatele, dodavatele, stěžovatele ani jiných účastníků řízení, pokud
 jejich identita není přímo relevantní pro pochopení právního závěru (což bývá
