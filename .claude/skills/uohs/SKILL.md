@@ -115,25 +115,47 @@ Invoke-WebRequest -Uri $pdfUrl -OutFile "$env:TEMP\uohs.pdf" -UserAgent "Mozilla
 Then use `anthropic-skills:pdf` to read it. If PDF reading fails, WebFetch
 summaries are sufficient — proceed with those.
 
-## Step 5 — Select the best decision
+## Step 5 — Check recent topics (avoid repetition)
+
+Before selecting, look at what's already been covered recently so you don't
+pick the same legal issue two weeks running. Fetch the last 5 issue titles:
+
+```powershell
+gh issue list --repo Agillis24/uohs_marketing --label "tip-z-praxe" --state all --limit 5 --json title | ConvertFrom-Json
+```
+
+Note the general topic of each (e.g. "MNNC", "podstatná změna smlouvy",
+"kvalifikace"). If a candidate decision covers the same narrow topic as a
+recent post, that's a reason to prefer a different candidate this time —
+unless the new decision says something genuinely different about that topic
+(e.g. a new exception, a reversal, a more extreme fact pattern) rather than
+just restating the same conclusion.
+
+If this command fails (gh unavailable), skip this check and proceed.
+
+## Step 6 — Select the best decision
 
 Apply your legal knowledge to select the ONE decision most worth writing about.
-Both I. and II. instance decisions are equally eligible — instance alone is not
-a deciding factor. Assess each on its actual content:
+There is no fixed list of "good" topics — any area of procurement law is
+fair game (qualification, evaluation, MNNC, contract changes, deadlines,
+framework agreements, subcontracting, scope of review, evidence standards,
+cancellation of tenders, communication with bidders, etc.). Both I. and II.
+instance decisions are equally eligible — instance alone is not a deciding
+factor. Judge each candidate on:
 
-- **Generalizable conclusions** — principles applicable across many procurement
-  situations, not just the specific case facts
-- **Practical impact** — rules that zadavatelé or dodavatelé can act on
-- **Key themes**: qualification requirements, evaluation criteria, transparency
-  of selection reports, MNNC, contract modifications, procedural deadlines,
-  scope of complaints, use of framework agreements, subcontracting rules
+- **Generalizable conclusions** — a principle a reader can apply to their own
+  future tender, not just an interesting fact pattern
+- **Practical impact** — something a zadavatel or dodavatel would actually
+  change in how they act
+- **Novelty relative to recent posts** — see Step 5; prefer breadth over
+  repeatedly mining the same legal question
 - **II. instance** is a mild positive signal (final, authoritative ruling) but
   a strong I. instance decision on a novel or practically important topic
   easily outweighs a routine II. instance case
 
 Avoid decisions that are purely procedural or fact-specific with no broader lesson.
 
-## Step 6 — Generate the LinkedIn post
+## Step 7 — Generate the LinkedIn post
 
 Follow this template EXACTLY (spacing, emojis, hashtag format):
 
@@ -170,7 +192,7 @@ Místo toho používejte obecné pojmy: „zadavatel", „dodavatel", „vybran�
 dodavatel", „navrhovatel", „stěžovatel". Cílem je zobecnitelnost — čtenář se
 má ztotožnit se situací, ne sledovat konkrétní spor konkrétních subjektů.
 
-## Step 7 — Generate Canva slide texts
+## Step 8 — Generate Canva slide texts
 
 Extract 3–6 key conclusions as slide quotes. Each slide:
 
@@ -186,7 +208,7 @@ Extract 3–6 key conclusions as slide quotes. Each slide:
 Good slides are punchy and self-contained — a reader seeing only this slide
 understands the legal point without reading the full decision.
 
-## Step 8 — Display output in conversation
+## Step 9 — Display output in conversation
 
 Show the results with these exact sections:
 
@@ -204,7 +226,7 @@ Show the results with these exact sections:
 
 ---
 
-## Step 9 — Create GitHub Issue
+## Step 10 — Create GitHub Issue
 
 Create the Issue using the content already displayed in Step 8. Build the
 body as a heredoc and pass it to gh:
@@ -236,7 +258,7 @@ $issueBody | gh issue create --repo Agillis24/uohs_marketing --title $title --la
 
 After creating, print the Issue URL to the user so they can open it if needed.
 
-## Step 10 — Update processed decisions
+## Step 11 — Update processed decisions
 
 Update `C:\Users\pocit\uohs_marketing\processed_decisions.json` with the ID
 of the selected decision:
