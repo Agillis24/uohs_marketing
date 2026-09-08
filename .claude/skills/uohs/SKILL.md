@@ -547,12 +547,17 @@ Prázdný řetězec projít nemusí.
   a text se vloží na špatné místo. Ověřeno, stalo se to a slide se rozdvojil.
   Když je poslední úsek jen `.`, nahrazuj ho až po ostatních a hlídej,
   aby žádná z předchozích náhrad tečku neobsahovala.
+- **Na slidech se závěry není krémový text nikdy tučný.** Tučný řez je
+  vyhrazený mátovému zvýraznění, krémový text běží vždy normálně. Platí to
+  pro slidy 2 až předposlední. Po naplnění si to na vráceném náhledu ověř,
+  a když nějaký krémový úsek vyšel tučně, řekni to uživateli, ať to opraví.
 - **Tučnost přetéká přes hranici úseků, ale jen na určitém místě.**
   Když za mátovým tučným úsekem následuje krémový **bez oddělovací mezery
   mezi nimi**, krémový si tučný řez vezme. Tam, kde je mezi nimi oddělovač
-  (třeba `. `), k tomu nedochází. Je to jedno kliknutí na opravu, ale
-  uživatele na to upozorni. Trvalé řešení je doplnit v šabloně oddělovací
-  úsek za každý mátový.
+  (třeba `. `), k tomu nedochází. Přes API to nespravíš, `format_text`
+  umí nastavit řez jen celému textovému poli a tím bys smazal i mátové
+  zvýraznění. Trvalé řešení je v šabloně, buď oddělovací úsek za každým
+  mátovým, nebo aby žádný krémový úsek nebyl uložený jako tučný.
 - **Delší text přeteče stránku.** Písmo je 54 bodů a pole má 960 bodů šířky,
   takže se na stránku vejde zhruba 260 znaků pohodlně a 400 na hraně. Drž se
   délky ze Step 8 a je to bez problému.
