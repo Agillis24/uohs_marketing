@@ -481,26 +481,30 @@ Vypiš výsledek v tomhle členění:
 
 Šablona je design **`DAHUogc13KY`**. Nikdy do ní nezasahuj, vždy pracuj s kopií.
 
-Struktura šablony:
+### Zjisti si strukturu, nespoléhej na pevná čísla
 
-| Stránka | Role |
-|---|---|
-| 1 | Obálka. Velký nadpis, krémová bublina s označením rozhodnutí, silueta budovy |
-| 2–5 | Slidy se závěry. Jedno textové pole s citací, bez označení rozhodnutí |
-| 6–7 | Závěrečné brandové stránky, nic se do nich nepíše |
+Uživatel šablonu občas upraví, přidá nebo ubere stránku. Proto si na začátku
+načti `page_metadata` a odvoď rozvržení z počtu stránek:
+
+- **stránka 1** je obálka
+- **poslední stránka** je závěrečná brandová, nic se do ní nepíše
+- **všechno mezi tím** jsou slidy se závěry
+
+Počet dostupných slidů je tedy `celkem − 2`. Ke dni psaní má šablona šest
+stránek, tedy čtyři sloty na závěry, ale ověř si to, nepředpokládej.
+
+Když máš víc závěrů než slotů, vyber ty nejsilnější a uživateli napiš,
+kolik jsi jich vynechal a proč, ať ví, že si může v šabloně zduplikovat
+další obsahový slide.
 
 ### Postup
 
-**1. Zkopíruj jen potřebné stránky.** Když máš N závěrů, vezmi obálku, N slidů
-a obě závěrečné:
+**1. Zkopíruj jen potřebné stránky.** Pro N závěrů vezmi obálku, N slidů
+a závěrečnou:
 
 ```
-copy-design(design_id: "DAHUogc13KY", page_numbers: [1, 2, ..., N+1, 6, 7])
+copy-design(design_id: "DAHUogc13KY", page_numbers: [1, 2 … N+1, POSLEDNÍ])
 ```
-
-Šablona má čtyři stránky na závěry, takže N je nejvýš 4. Když jich máš víc,
-buď vyber ty nejsilnější, nebo řekni uživateli, ať si v šabloně stránky
-zduplikuje.
 
 **2. Otevři kopii k editaci.** `read-design` s `open_transaction: true`.
 Vrátí `transaction_id` a u každého prvku `locator_id`.
@@ -544,10 +548,17 @@ Prázdný řetězec projít nemusí.
 
 ### Když Canva selže
 
-Konektor nemusí být připojený nebo může chybět oprávnění. V tom případě
-napiš uživateli, že carousel se nepodařilo vyrobit, a připomeň, že texty
-slidů má vypsané ve Step 10 a může je vložit do šablony ručně. Zbytek
-běhu tím není dotčený.
+Canva konektor **není v každé session automaticky dostupný**. Když jeho
+nástroje nevidíš, nezkoušej ho autorizovat, z běžící session to nejde.
+
+Napiš uživateli, že carousel se nepodařilo vyrobit, protože konektor v téhle
+session není, a poraď mu, ať zkusí spustit `/uohs` v nově otevřené session.
+Konektor se do ní obvykle načte. Když ani tam ne, má ho zapnout v nastavení
+konektorů na claude.ai, aby platil pro všechny session, ne jen pro tu,
+ve které ho autorizoval.
+
+Zbytek běhu tím není dotčený. Připomeň, že texty slidů má vypsané ve Step 10
+a jdou vložit do šablony ručně.
 
 ## Step 12 — Založ Issue
 
