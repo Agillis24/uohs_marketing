@@ -185,8 +185,12 @@ Z tohoto rozhodnutí podle nás plynou pro zadavatelskou praxi zejména:
 
 🤖 I s tímto rozhodnutím pracuje TENDERIX | První AI ve veřejných zakázkách při vyhledávání v rozhodovací praxi ÚOHS, judikatuře a právních předpisech pro veřejné zakázky.
 
-hashtag#verejnezakazky hashtag#ZZVZ hashtag#UOHS [2–3 hashtagy k tématu] hashtag#TENDERIX
+#verejnezakazky #ZZVZ #UOHS [2–3 hashtagy k tématu] #TENDERIX
 ```
+
+Hashtagy piš normálně s mřížkou. Dřívější verze šablony měla `hashtag#...`,
+což je artefakt kopírování textu z LinkedInu ven. Po vložení zpátky by se
+vypsal doslova a hashtag by z toho nevznikl.
 
 ### První dva řádky rozhodují
 
@@ -343,17 +347,23 @@ brandové stránce, což čtenáři stačí. Na každém slidu jen zabíralo mí
 
 ### Délka slidu
 
-Cíl jsou tři až čtyři řádky, zhruba 200 až 260 znaků. Osm řádků drobného
-textu na mobilu nikdo nečte a celý carousel tím ztrácí smysl.
+**Jeden závěr je vždy jeden slide.** Nikdy ho nerozděluj na dva. Čtenář často
+vidí jen jednu stránku z carouselu a půlka myšlenky mu nedá nic. Soudržnost
+závěru je důležitější než počet řádků.
 
-Krátit ale nesmíš na úkor obsahu. **Když se závěr do čtyř řádků nevejde,
-aniž by ztratil podstatu, rozděl ho na dva slidy.** Dva čitelné slidy jsou
-lepší než jeden přeplněný. Slidů může být klidně šest.
+Cíl jsou tři až čtyři řádky, zhruba 200 až 260 znaků. Ber to jako mířidlo,
+ne jako strop. Osm řádků drobného textu na mobilu nikdo nečte, ale závěr,
+který potřebuje pět řádků, si těch pět řádků vezme.
 
-Co jde vypustit bez ztráty obsahu: opisy skutkového stavu, jména institutů,
-která si čtenář domyslí, vysvětlující vsuvky v závorkách, a rozvité přívlastky.
-Co vypustit nesmíš: podmínku, za které závěr platí, a rozsah, na který dopadá.
-Právě ty dvě věci dělají ze závěru použitelné pravidlo.
+Zkracuj tedy formulaci, ne obsah. Vypustit jde opis skutkového stavu, jména
+institutů, která si čtenář domyslí, vysvětlující vsuvky v závorkách a rozvité
+přívlastky. Vypustit nesmíš podmínku, za které závěr platí, a rozsah, na který
+dopadá. Právě ty dvě věci dělají ze závěru použitelné pravidlo, bez nich
+zbude jen dobře znějící slogan.
+
+Když je po zkrácení slide pořád dlouhý, je to většinou signál, že se v něm
+schovávají dva různé závěry. Pak je od sebe odděl a udělej z nich dva slidy,
+každý s vlastní pointou. To je něco jiného než trhat jeden závěr na půl.
 
 Dobrý slide je úderný a soběstačný. Čtenář, který uvidí jen jeho, musí
 právnímu bodu rozumět bez čtení celého rozhodnutí.
