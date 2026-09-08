@@ -513,6 +513,11 @@ Vrátí `transaction_id` a u každého prvku `locator_id`.
 v bublině. Do bubliny patří krátké označení ve tvaru
 `ÚOHS-{čj} ze dne {datum}`, delší se do bubliny nevejde a zalomí se.
 
+**Nadpis obálky drž do 40 znaků.** Pole má 960 bodů šířky a písmo 82 bodů,
+takže delší nadpis se zalomí na tři řádky a spadne do bubliny pod sebou.
+Když se to stane, sniž písmo na 70 a posuň nadpis na `top: 390`.
+Po nahrazení si to ověř na vráceném náhledu, ne od oka.
+
 **4. Slidy se závěry.** Tohle je jediné místo, kde se to dělá jinak, než
 by člověk čekal, a stojí za to pochopit proč.
 
@@ -536,9 +541,18 @@ Prázdný řetězec projít nemusí.
 
 ### Na co si dát pozor
 
-- **Formátování občas přeteče.** Když se nahrazuje běžný úsek sousedící
-  s tučným, může si vzít tučný řez. Je to jedno kliknutí na opravu, ale
-  uživatele na to upozorni, ať to nepřehlédne.
+- **Jako `find_text` používej vždy celý text úseku, nikdy krátký útržek.**
+  Hledání probíhá v celém textovém poli, ne uvnitř jednoho úseku. Když dáš
+  hledat samotnou tečku nebo mezeru, trefí se první výskyt kdekoliv v poli
+  a text se vloží na špatné místo. Ověřeno, stalo se to a slide se rozdvojil.
+  Když je poslední úsek jen `.`, nahrazuj ho až po ostatních a hlídej,
+  aby žádná z předchozích náhrad tečku neobsahovala.
+- **Tučnost přetéká přes hranici úseků, ale jen na určitém místě.**
+  Když za mátovým tučným úsekem následuje krémový **bez oddělovací mezery
+  mezi nimi**, krémový si tučný řez vezme. Tam, kde je mezi nimi oddělovač
+  (třeba `. `), k tomu nedochází. Je to jedno kliknutí na opravu, ale
+  uživatele na to upozorni. Trvalé řešení je doplnit v šabloně oddělovací
+  úsek za každý mátový.
 - **Delší text přeteče stránku.** Písmo je 54 bodů a pole má 960 bodů šířky,
   takže se na stránku vejde zhruba 260 znaků pohodlně a 400 na hraně. Drž se
   délky ze Step 8 a je to bez problému.
