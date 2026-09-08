@@ -20,6 +20,29 @@ ani psaní textu na subagenty. Kvalita právního výkladu a čeština stojí a 
 s modelem, který to píše, a session model je pro tenhle úkol ten nejsilnější,
 co je k dispozici. Subagent by běžel na slabším modelu a výsledek by byl znát.
 
+## Věcná správnost je nadřazená všemu ostatnímu
+
+Tenhle příspěvek vychází pod značkou a čtou ho lidé, kteří podle něj budou
+zadávat veřejné zakázky. Jedna vymyšlená věta je horší než deset nudných.
+Když si musíš vybrat mezi poutavým a přesným, vyber přesné.
+
+- **Nevymýšlej si.** Každý skutkový i právní údaj musí mít oporu v textu
+  rozhodnutí. Když v něm něco není, do příspěvku to nepatří, ani kdyby to
+  z tvé znalosti práva vyplývalo a znělo rozumně.
+- **Nezkresluj.** Netvrď víc, než rozhodnutí říká, a netvrď to důrazněji.
+  Závěr vázaný na konkrétní okolnosti nedělej obecným pravidlem. Z „úřad
+  v této věci neshledal pochybení" nedělej „takový postup je v pořádku".
+- **Nepřisuzuj úřadu cizí názory.** Argument účastníka není závěr úřadu,
+  i když je v rozhodnutí odcitovaný. Viz Step 8.
+- **Nedoplňuj kontext z hlavy.** Nepřidávej odkazy na judikaturu, jiná
+  rozhodnutí ani na znění zákona, které v rozhodnutí nezazněly. Když by
+  odkaz text zpřesnil, ale v rozhodnutí není, vynech ho.
+- **Když si nejsi jistý, tvrzení vypusť.** Kratší a jistý příspěvek je lepší
+  než delší s jedním sporným bodem.
+
+Hotový draft se povinně prožene zpětnou kontrolou, viz Step 9. Bez ní se
+příspěvek uživateli nepředkládá.
+
 ---
 
 ## Step 0 — Příprava prostředí
@@ -304,7 +327,51 @@ kontrole, uživatel si podle toho tvrzení ověří přímo v PDF.
   odhadu. Nesprávné číslo je horší než žádné.
 - Totéž je vhodné i u 📌 závěrů, pokud vycházejí z jiných bodů než slidy.
 
-## Step 9 — Výstup do konverzace
+## Step 9 — Zpětná kontrola tvrzení
+
+Povinný krok. Draft je v tuhle chvíli hotový, ale nepředkládej ho, dokud
+neprojde kontrolou. Píšeš z paměti na to, co jsi četl před mnoha kroky,
+a právě tam vznikají posuny a domyšlené detaily.
+
+**Postup.** Vrať se k textu rozhodnutí ve `$scratch`. Když ho už nemáš
+v kontextu, načti ho znovu nástrojem Read, ať kontroluješ proti zdroji
+a ne proti vlastní vzpomínce. Pak projdi draft po jednotlivých tvrzeních,
+tedy věty úvodu, každý analytický odstavec, každý 📌 závěr a každý slide.
+
+U každého tvrzení si odpověz na tři otázky:
+
+1. **Je to v rozhodnutí?** Najdi konkrétní bod odůvodnění, který to říká.
+   Když ho nenajdeš, tvrzení škrtni. Nehledej ho „nějak jinde", škrtni.
+2. **Říká to takhle silně?** Porovnej modalitu. Rozhodnutí často říká
+   „za těchto okolností", „v posuzovaném případě", „nelze vyloučit".
+   Když to v draftu vyznívá jako obecné pravidlo, oprav formulaci.
+3. **Mluví tam úřad?** Ověř, že pasáž je z hodnotící části a ne z reprodukce
+   tvrzení účastníka. Viz Step 8.
+
+**Zvlášť si ověř tyhle věci, protože se v nich chybuje nejčastěji:**
+
+- **Čísla.** Každé procento, částka, lhůta, počet dnů a výše pokuty.
+  Porovnej znak po znaku s textem, ne od oka.
+- **Paragrafy.** Každý odkaz na ZZVZ včetně odstavce a písmene. Záměna
+  § 222 odst. 4 písm. b) za odst. 6 mění smysl celého závěru.
+- **Hlavička.** Č. j., sp. zn. a datum proti PDF a detailní stránce.
+- **Výsledek řízení.** Potvrdil, zrušil, změnil, zamítl, zastavil.
+  U rozkladu i to, zda uspěl celý nebo jen zčásti.
+- **Kdo je kdo.** Zadavatel, navrhovatel, vybraný dodavatel a obviněný
+  se v textu snadno prohodí, zvlášť když příspěvek anonymizuješ.
+- **Čísla bodů u slidů.** Otevři ten bod a přečti si ho. Číslo, které jsi
+  odhadl podle pořadí, je skoro jistě špatně.
+
+**Když kontrola něco najde**, oprav to a u dotčeného tvrzení projdi tři
+otázky znovu. Oprava jednoho čísla často znamená, že navazující věta
+už neplatí.
+
+**Do konverzace pak napiš jeden řádek o tom, jak kontrola dopadla.** Buď že
+všechna tvrzení mají oporu v uvedených bodech, nebo co jsi opravil a proč.
+Uživatel podle toho pozná, že kontrola opravdu proběhla, a ví, kam se
+podívat. Nepiš, že proběhla, když neproběhla.
+
+## Step 10 — Výstup do konverzace
 
 Vypiš výsledek v tomhle členění:
 
@@ -324,9 +391,9 @@ Vypiš výsledek v tomhle členění:
 
 ---
 
-## Step 10 — Založ Issue
+## Step 11 — Založ Issue
 
-Obsah je stejný jako ve Step 9. Text **nevkládej přímo do příkazu**, ani
+Obsah je stejný jako ve Step 10. Text **nevkládej přímo do příkazu**, ani
 do PowerShell heredocu. Uvozovky, `$` a zpětná lomítka v textu by se rozbily.
 
 Napiš tělo Issue nástrojem Write do `$scratch\issue_body.md` a pak:
@@ -341,7 +408,7 @@ v bloku kódu, všechny slidy a odkaz na detail na webu ÚOHS.
 
 Po založení vypiš uživateli URL Issue.
 
-## Step 11 — Zapiš zpracované rozhodnutí
+## Step 12 — Zapiš zpracované rozhodnutí
 
 Do `C:\Users\pocit\uohs_marketing\processed_decisions.json` přidej ID vybraného
 rozhodnutí. Soubor uprav nástrojem Edit nebo Write, ne přes PowerShell
@@ -358,7 +425,12 @@ a nepoužil, nech nezapsané, ať můžou vyjít příště.
 - **gh chybí nebo instalace selže** — řekni to, výstup ukaž, Issue přeskoč
 - **gh není přihlášen** — poproš o `gh auth login`, pak zkus znovu
 - **pdftotext chybí** — řekni to výslovně, pokračuj přes WebFetch shrnutí
-  a u slidů uveď, že čísla bodů nejsou k dispozici
+  a u slidů uveď, že čísla bodů nejsou k dispozici. Zpětná kontrola pak
+  probíhá jen proti shrnutí, což je slabší opora. Napiš to uživateli
+  a drž tvrzení opatrněji, ať nestavíš na něčem, co nemáš ověřené.
+- **zpětná kontrola najde tvrzení bez opory** — škrtni ho a text přepiš.
+  Když po škrtání zbude málo obsahu, radši sáhni po jiném rozhodnutí,
+  než abys příspěvek dopisoval domněnkami
 - **web ÚOHS nedostupný** — řekni to a skonči
 - **žádná nová rozhodnutí** — řekni to a skonči
 - **PDF se nepodaří stáhnout u všech kandidátů** — zkus WebFetch shrnutí,
