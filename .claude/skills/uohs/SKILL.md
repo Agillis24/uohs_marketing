@@ -169,11 +169,9 @@ stav, že z nich nic obecného neplyne.
 Kostra příspěvku:
 
 ```
-🟣 Tip z praxe: [výstižný titulek, co je hlavní závěr]
+🟣 Tip z praxe: [hák, praktická sázka pro čtenáře]
 
-🏛️ [Orgán] v rozhodnutí č. j. [čj.], sp. zn. [sp.zn.], ze dne [datum] [1–2 věty, výsledek řízení a o jakou zakázku šlo]
-
-[Úvodní odstavec, viz pravidlo „Úvod" níže]
+[Úvodní odstavec, o jakou zakázku šlo a co bylo předmětem sporu, viz pravidlo „Úvod" níže]
 
 [2–4 odstavce, rozbor klíčových závěrů s konkrétním praktickým dopadem]
 
@@ -183,11 +181,40 @@ Z tohoto rozhodnutí podle nás plynou pro zadavatelskou praxi zejména:
 📌 [závěr 3]
 📌 [závěr 4, jen když je relevantní]
 
-🔗 Rozhodnutí předsedy ÚOHS: [plná URL detailní stránky]
+🏛️ [Orgán], č. j. [čj.], sp. zn. [sp.zn.], ze dne [datum]. Odkaz na rozhodnutí v prvním komentáři.
 
 🤖 I s tímto rozhodnutím pracuje TENDERIX | První AI ve veřejných zakázkách při vyhledávání v rozhodovací praxi ÚOHS, judikatuře a právních předpisech pro veřejné zakázky.
 
 hashtag#verejnezakazky hashtag#ZZVZ hashtag#UOHS [2–3 hashtagy k tématu] hashtag#TENDERIX
+```
+
+### První dva řádky rozhodují
+
+LinkedIn na mobilu ukáže zhruba prvních 140 až 200 znaků a zbytek schová
+pod „zobrazit více". Co je nad tím zlomem, rozhoduje, jestli někdo čte dál.
+
+Do prvních dvou řádků proto nikdy nedávej spisové značky ani číslo jednací.
+Pro čtenáře je to bariéra, ne informace, a spotřebuje to celý viditelný
+prostor. Formální označení rozhodnutí patří až dolů, k podpisu.
+
+Nahoru patří **praktická sázka**, tedy co čtenář riskuje nebo získá. Otázka,
+kterou si zadavatel sám klade, nebo tvrzení, které je proti běžnému očekávání.
+Nadsazovat ale nemusíš, publikum jsou profesionálové a klikbajt je odradí.
+Stačí konkrétnost.
+
+- Slabé: „Tip z praxe: k oznámení o výběru a jeho náležitostem"
+- Silné: „Tip z praxe: musí zadavatel do oznámení o výběru opsat celé životopisy?"
+
+### Odkaz patří do prvního komentáře
+
+Do těla příspěvku odkaz na rozhodnutí **nedávej**. LinkedIn upozaďuje
+příspěvky, které vedou pryč z platformy, a dosah tím znatelně klesá.
+V příspěvku zůstane jen věta, že odkaz je v prvním komentáři.
+
+Odkaz vypiš zvlášť jako text prvního komentáře, viz Step 10:
+
+```
+🔗 Rozhodnutí [orgán]: [plná URL detailní stránky]
 ```
 
 ### Úvod, o co v rozhodnutí šlo
@@ -205,10 +232,12 @@ krátce představ:
 - **Jaké z toho plynou závěry pro praxi.** Naznač to už v úvodu, ať čtenář ví,
   proč má číst dál. Rozvedeš to pak v 📌 bodech.
 
-Tyhle tři věci můžou být rozložené mezi odstavec s označením rozhodnutí
-a úvodní odstavec, nemusí být v jednom bloku. Podstatné je, že po prvních
-dvou odstavcích čtenář ví, o jakou zakázku šlo, o co se vedl spor a proč
-ho to má zajímat.
+Tyhle tři věci můžou být rozložené mezi hák a úvodní odstavec, nemusí být
+v jednom bloku. Podstatné je, že po prvních dvou odstavcích čtenář ví,
+o jakou zakázku šlo, o co se vedl spor a proč ho to má zajímat.
+
+Výsledek řízení, tedy zda úřad rozklad zamítl, rozhodnutí zrušil nebo změnil,
+zmiň v úvodním odstavci slovy. Bez spisové značky, ta je až dole.
 
 ### Závěr příspěvku
 
@@ -224,8 +253,8 @@ Za podpisem následují už jen hashtagy.
 ### Emoji
 
 Používej je s rozvahou a citem. Drž se ustálené kostry, tedy 🟣 na začátku,
-🏛️ u označení rozhodnutí, 📌 u závěrů, 🔗 u odkazu a 🤖 u podpisu. Nic dalšího
-nepřidávej. Žádné emoji uvnitř odstavců, žádné ozdoby u hashtagů, nic
+📌 u závěrů, 🏛️ u označení rozhodnutí dole a 🤖 u podpisu. V prvním komentáři
+pak 🔗 u odkazu. Nic dalšího nepřidávej. Žádné emoji uvnitř odstavců, žádné ozdoby u hashtagů, nic
 na zdůraznění jednotlivých slov. Když má příspěvek méně závěrů, klesne počet
 📌 a to je v pořádku. Příspěvek má působit jako odborný text, ne jako reklama.
 
@@ -272,18 +301,59 @@ nekoliduje. Tedy „zakázka na stavební práce spočívající v nástavbě ma
 
 ## Step 8 — Texty slidů do Canvy
 
+Carousel má tři druhy stránek. Obálku, slidy se závěry a závěrečnou
+brandovou stránku, která je v šabloně napevno a nic se do ní nepíše.
+
+### Obálka, slide 1
+
+Ve feedu se z celého carouselu ukáže jen tahle jedna stránka. Rozhoduje
+o tom, jestli někdo vůbec swipne dál, takže na ni nepatří výklad, ale
+jedna velká myšlenka.
+
+```
+### Slide 1 — obálka
+
+NADPIS: [4–8 slov, otázka nebo tvrzení k tématu]
+
+*Rozhodnutí [orgán] č. j. [čj.], sp. zn.: [sp.zn.] ze dne [datum]:*
+```
+
+Nadpis drž krátký, ať se vejde velkým písmem. Funguje otázka, kterou
+si zadavatel sám klade, nebo tvrzení proti běžnému očekávání. Může,
+ale nemusí být shodný s hákem v textu příspěvku.
+
+- Slabé: „Náležitosti oznámení o výběru"
+- Silné: „Musí zadavatel opsat celé životopisy?"
+
+### Slidy se závěry, slide 2 a dál
+
 Vytáhni 3 až 6 nosných závěrů, každý jako jeden slide:
 
 ```
 ### Slide N
 
-[2–5 vět. Klíčový závěr, zobecnitelný pro praxi.
+[Klíčový závěr, zobecnitelný pro praxi.
 **Nejdůležitější části tučně** a zbytek normálně.]
-
-*Rozhodnutí předsedy ÚOHS č. j. [čj.], sp. zn.: [sp.zn.] ze dne [datum]:*
 
 > 📎 Zdroj: bod [N] odůvodnění
 ```
+
+Označení rozhodnutí na těchhle slidech **není**. Je na obálce a na závěrečné
+brandové stránce, což čtenáři stačí. Na každém slidu jen zabíralo místo.
+
+### Délka slidu
+
+Cíl jsou tři až čtyři řádky, zhruba 200 až 260 znaků. Osm řádků drobného
+textu na mobilu nikdo nečte a celý carousel tím ztrácí smysl.
+
+Krátit ale nesmíš na úkor obsahu. **Když se závěr do čtyř řádků nevejde,
+aniž by ztratil podstatu, rozděl ho na dva slidy.** Dva čitelné slidy jsou
+lepší než jeden přeplněný. Slidů může být klidně šest.
+
+Co jde vypustit bez ztráty obsahu: opisy skutkového stavu, jména institutů,
+která si čtenář domyslí, vysvětlující vsuvky v závorkách, a rozvité přívlastky.
+Co vypustit nesmíš: podmínku, za které závěr platí, a rozsah, na který dopadá.
+Právě ty dvě věci dělají ze závěru použitelné pravidlo.
 
 Dobrý slide je úderný a soběstačný. Čtenář, který uvidí jen jeho, musí
 právnímu bodu rozumět bez čtení celého rozhodnutí.
@@ -377,17 +447,23 @@ Vypiš výsledek v tomhle členění:
 
 ---
 📝 **TEXT LINKEDIN PŘÍSPĚVKU**
-*(připraveno ke zkopírování)*
+*(připraveno ke zkopírování, bez odkazu)*
 
 [celý příspěvek]
 
 *Délka: N znaků*
 
 ---
+💬 **TEXT PRVNÍHO KOMENTÁŘE**
+*(vložte hned po publikaci příspěvku)*
+
+🔗 Rozhodnutí [orgán]: [plná URL detailní stránky]
+
+---
 🖼️ **TEXTY PRO CANVA SLIDES**
 *(zkopírujte každý slide do šablony, tučné části zvýrazněte)*
 
-[slidy]
+[obálka a slidy]
 
 ---
 
@@ -404,7 +480,8 @@ gh issue create --repo Agillis24/uohs_marketing --title $title --label "tip-z-pr
 ```
 
 Tělo Issue obsahuje tabulku s metadaty rozhodnutí, celý text příspěvku
-v bloku kódu, všechny slidy a odkaz na detail na webu ÚOHS.
+v bloku kódu, text prvního komentáře, obálku a všechny slidy, a odkaz
+na detail na webu ÚOHS.
 
 Po založení vypiš uživateli URL Issue.
 
