@@ -1,12 +1,23 @@
 name: ÚOHS Analyzer — týdenní analýza
 
 on:
-  schedule:
-    # Každé pondělí v 7:00 SEČ (= 6:00 UTC v zimě, 5:00 UTC v létě)
-    # Nastaveno na 6:00 UTC — v létě dorazí ~8:00, v zimě ~7:00
-    - cron: '0 6 * * 1'
+  # Týdenní plán je od 8. 9. 2026 vypnutý.
+  #
+  # Důvod: příspěvky se připravují příkazem /uohs v Claude Code, kde analýzu
+  # dělá Opus 5 nad plným textem PDF. Tenhle workflow běží na Groq/Llama
+  # a zapisoval do processed_decisions.json každé analyzované rozhodnutí,
+  # ne jen to, o kterém psal. Tím bral /uohs kandidáty dřív, než je vůbec
+  # viděl. Do 8. 9. 2026 takto spotřeboval 28 rozhodnutí a založil 12 Issues
+  # s rozbitým nadpisem (nefunguje extrakce předmětu z <h1>).
+  #
+  # Zpět se zapíná odkomentováním dvou řádků níže. Před tím ale oprav
+  # extrakci předmětu v uohs_analyzer.py a zvaž, ať zapisuje do
+  # processed_decisions.json jen vybrané rozhodnutí.
+  #
+  # schedule:
+  #   - cron: '0 6 * * 1'
   workflow_dispatch:
-    # Umožňuje ruční spuštění z GitHubu (záložka Actions → Run workflow)
+    # Ruční spuštění z GitHubu zůstává (záložka Actions → Run workflow)
 
 permissions:
   issues: write    # potřebujeme vytvořit Issue
