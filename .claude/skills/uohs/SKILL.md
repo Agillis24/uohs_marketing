@@ -12,8 +12,8 @@ description: >
 # ÚOHS → TENDERIX LinkedIn Post Generator
 
 Najde nová rozhodnutí ÚOHS, vybere jedno nosné, přečte jeho plný text
-a vyrobí hotový LinkedIn příspěvek plus texty slidů do Canvy. Nakonec
-založí Issue jako archiv.
+a vyrobí hotový LinkedIn příspěvek, text prvního komentáře a carousel
+v Canvě. Nakonec založí Issue jako archiv.
 
 **Analýzu i psaní dělej sám, v této session.** Nedeleguj rozbor rozhodnutí
 ani psaní textu na subagenty. Kvalita právního výkladu a čeština stojí a padají
@@ -477,7 +477,79 @@ Vypiš výsledek v tomhle členění:
 
 ---
 
-## Step 11 — Založ Issue
+## Step 11 — Vyrob carousel v Canvě
+
+Šablona je design **`DAHUogc13KY`**. Nikdy do ní nezasahuj, vždy pracuj s kopií.
+
+Struktura šablony:
+
+| Stránka | Role |
+|---|---|
+| 1 | Obálka. Velký nadpis, krémová bublina s označením rozhodnutí, silueta budovy |
+| 2–5 | Slidy se závěry. Jedno textové pole s citací, bez označení rozhodnutí |
+| 6–7 | Závěrečné brandové stránky, nic se do nich nepíše |
+
+### Postup
+
+**1. Zkopíruj jen potřebné stránky.** Když máš N závěrů, vezmi obálku, N slidů
+a obě závěrečné:
+
+```
+copy-design(design_id: "DAHUogc13KY", page_numbers: [1, 2, ..., N+1, 6, 7])
+```
+
+Šablona má čtyři stránky na závěry, takže N je nejvýš 4. Když jich máš víc,
+buď vyber ty nejsilnější, nebo řekni uživateli, ať si v šabloně stránky
+zduplikuje.
+
+**2. Otevři kopii k editaci.** `read-design` s `open_transaction: true`.
+Vrátí `transaction_id` a u každého prvku `locator_id`.
+
+**3. Obálka.** `replace_text` na velké textové pole s nadpisem a na text
+v bublině. Do bubliny patří krátké označení ve tvaru
+`ÚOHS-{čj} ze dne {datum}`, delší se do bubliny nevejde a zalomí se.
+
+**4. Slidy se závěry.** Tohle je jediné místo, kde se to dělá jinak, než
+by člověk čekal, a stojí za to pochopit proč.
+
+Text citace je v šabloně uložený jako **posloupnost úseků**, kde se střídají
+krémové běžné a mátové tučné. Kdybys použil `replace_text`, sloučí se to
+do jednoho úseku a **zvýraznění zmizí**. Proto se nahrazuje
+`find_and_replace_text` **úsek po úseku**, kde `find_text` je stávající text
+daného úseku. Formátování tím zůstane zachované.
+
+Prakticky to znamená, že **nový závěr musíš napsat rozdělený na stejný počet
+úseků, jaký má daná stránka šablony**, se stejným střídáním. Přečti si tedy
+regiony stránky a teprve pak text poskládej. Jsi to ty, kdo ten text píše,
+takže se dá napsat rovnou tak, aby vzor seděl.
+
+Když je v šabloně úsek, pro který nemáš obsah, nahraď ho jednou mezerou.
+Prázdný řetězec projít nemusí.
+
+**5. Ulož.** `edit-design` s `finalize: "commit"` a prázdnými operacemi.
+
+**6. Vypiš uživateli `edit_url` kopie.**
+
+### Na co si dát pozor
+
+- **Formátování občas přeteče.** Když se nahrazuje běžný úsek sousedící
+  s tučným, může si vzít tučný řez. Je to jedno kliknutí na opravu, ale
+  uživatele na to upozorni, ať to nepřehlédne.
+- **Delší text přeteče stránku.** Písmo je 54 bodů a pole má 960 bodů šířky,
+  takže se na stránku vejde zhruba 260 znaků pohodlně a 400 na hraně. Drž se
+  délky ze Step 8 a je to bez problému.
+- **Tučné zvýraznění v Canvě odpovídá `**tučně**` z výstupu ve Step 10.**
+  Rozdělení na úseky musí sedět na to, co jsi vypsal do konverzace, ať se
+  uživateli obojí shoduje.
+
+### Když Canva selže
+
+Konektor nemusí být připojený nebo může chybět oprávnění. V tom případě
+napiš uživateli, že carousel se nepodařilo vyrobit, a připomeň, že texty
+slidů má vypsané ve Step 10 a může je vložit do šablony ručně. Zbytek
+běhu tím není dotčený.
+
+## Step 12 — Založ Issue
 
 Obsah je stejný jako ve Step 10. Text **nevkládej přímo do příkazu**, ani
 do PowerShell heredocu. Uvozovky, `$` a zpětná lomítka v textu by se rozbily.
@@ -490,12 +562,12 @@ gh issue create --repo Agillis24/uohs_marketing --title $title --label "tip-z-pr
 ```
 
 Tělo Issue obsahuje tabulku s metadaty rozhodnutí, celý text příspěvku
-v bloku kódu, text prvního komentáře, obálku a všechny slidy, a odkaz
-na detail na webu ÚOHS.
+v bloku kódu, text prvního komentáře, obálku a všechny slidy, odkaz
+na detail na webu ÚOHS a odkaz na vyrobený carousel v Canvě ze Step 11.
 
 Po založení vypiš uživateli URL Issue.
 
-## Step 12 — Zapiš zpracované rozhodnutí
+## Step 13 — Zapiš zpracované rozhodnutí
 
 Do `C:\Users\pocit\uohs_marketing\processed_decisions.json` přidej ID vybraného
 rozhodnutí. Soubor uprav nástrojem Edit nebo Write, ne přes PowerShell
@@ -522,4 +594,6 @@ a nepoužil, nech nezapsané, ať můžou vyjít příště.
 - **žádná nová rozhodnutí** — řekni to a skonči
 - **PDF se nepodaří stáhnout u všech kandidátů** — zkus WebFetch shrnutí,
   a když ani to ne, skonči
+- **Canva selže nebo není připojená** — řekni to, připomeň, že texty slidů
+  jsou vypsané ve Step 10 a jdou vložit ručně, a pokračuj dál
 - **založení Issue selže** — výstup stejně ukaž, vypiš chybu a pokračuj
