@@ -2,7 +2,8 @@
 name: uohs
 description: >
   TENDERIX workflow: analyze new ÚOHS public procurement decisions and generate
-  a LinkedIn "Tip z praxe" post (text + Canva slide quotes). Use this skill
+  a "Tip z praxe" post for LinkedIn and Instagram plus a Canva carousel.
+  Use this skill
   whenever the user types /uohs, asks to "zpracuj ÚOHS", "připrav příspěvek
   z ÚOHS", "nová rozhodnutí ÚOHS", or anything about analyzing ÚOHS decisions
   for LinkedIn. Always invoke this skill for these requests — do not attempt
@@ -12,8 +13,8 @@ description: >
 # ÚOHS → TENDERIX LinkedIn Post Generator
 
 Najde nová rozhodnutí ÚOHS, vybere jedno nosné, přečte jeho plný text
-a vyrobí hotový LinkedIn příspěvek, text prvního komentáře a carousel
-v Canvě. Nakonec založí Issue jako archiv.
+a vyrobí hotový LinkedIn příspěvek, text prvního komentáře, zkrácenou verzi
+pro Instagram a carousel v Canvě. Nakonec založí Issue jako archiv.
 
 **Analýzu i psaní dělej sám, v této session.** Nedeleguj rozbor rozhodnutí
 ani psaní textu na subagenty. Kvalita právního výkladu a čeština stojí a padají
@@ -291,6 +292,57 @@ Když je text pod 2500, rozveď jádro sporu nebo rozbor o věcný obsah,
 konkrétnější dopad, ne vatu. Když přeleze 3000, krať prostřední odstavce
 rozboru. Úvod ani 📌 body nekrať, ty nesou hlavní hodnotu.
 
+### Zkrácená verze pro Instagram
+
+Kromě LinkedIn textu vyrob i kratší verzi pro Instagram. **Vychází ze stejného
+už napsaného textu, není to nový rozbor.**
+
+**Zkracováním nesmí vzniknout nové tvrzení.** Tohle je nejdůležitější pravidlo
+celé téhle části. Když by zkrácení změnilo rozsah závěru nebo zahodilo
+podmínku, za které platí, nech delší formulaci, nebo ten závěr do instagramové
+verze vůbec neber. Radši o jeden bod méně než jeden nepřesný. Instagram verze
+prochází stejnou zpětnou kontrolou ve Step 9 jako LinkedIn text.
+
+Kostra:
+
+```
+🟣 [hák, ať se vejde do 125 znaků]
+
+[2–3 odstavce, o jakou zakázku šlo, co bylo předmětem sporu a hlavní závěr]
+
+Co si z toho odnést:
+📌 [závěr 1]
+📌 [závěr 2]
+📌 [závěr 3]
+
+🏛️ [Orgán], č. j. [čj.], sp. zn. [sp.zn.], ze dne [datum]
+
+🤖 I s tímto rozhodnutím pracuje TENDERIX | První AI ve veřejných zakázkách při vyhledávání v rozhodovací praxi ÚOHS, judikatuře a právních předpisech pro veřejné zakázky.
+
+[10–15 hashtagů]
+```
+
+**Délka 1200 až 1600 znaků.** Limit Instagramu je 2200, ale kratší text tam
+funguje líp než na LinkedIn. Délku po dopsání změř, stejně jako u LinkedIn textu.
+
+**Zlom je dřív než na LinkedIn.** Instagram ukáže ve feedu zhruba 125 znaků
+a pak schová zbytek pod „více". Hák proto musí být kratší a údernější než
+ten linkedinový. Klidně použij jiný, nemusí být shodný.
+
+**Odkaz do popisku nedávej.** Instagram odkazy v popisku neproklikává, vypsaly
+by se jako mrtvý text. Proto tam patří jen číslo jednací a spisová značka,
+podle kterých si to odborník dohledá sám. Pokud by uživatel chtěl místo toho
+větu „odkaz v biu", musel by si biu měnit u každého příspěvku, takže to
+nenavrhuj sám od sebe.
+
+**Hashtagů dej víc než na LinkedIn**, zhruba 10 až 15. Na Instagramu slouží
+k vyhledávání, ne jen k označení tématu. Základ zůstává stejný, tedy
+#verejnezakazky #ZZVZ #UOHS #TENDERIX, a doplň je o širší okruh k tématu.
+
+**Pro Instagram se grafika nedělá.** Carousel v Canvě vzniká jen pro LinkedIn.
+Na Instagram jde pouze text, takže do instagramové části nic o slidech nepiš
+a carousel v ní nenabízej.
+
 ### Anonymizace
 
 Neuváděj názvy zadavatele, dodavatele, navrhovatele ani dalších účastníků,
@@ -418,6 +470,11 @@ v kontextu, načti ho znovu nástrojem Read, ať kontroluješ proti zdroji
 a ne proti vlastní vzpomínce. Pak projdi draft po jednotlivých tvrzeních,
 tedy věty úvodu, každý analytický odstavec, každý 📌 závěr a každý slide.
 
+**Instagram verzi kontroluj zvlášť, ne jen letmo.** Je to zkrácený text
+a právě při zkracování se ztrácejí podmínky a rozsahy. Ověř u ní tytéž tři
+otázky. Zvlášť si všímej, jestli se z „za těchto okolností" nestalo obecné
+pravidlo jen proto, že se vypustila vedlejší věta.
+
 U každého tvrzení si odpověz na tři otázky:
 
 1. **Je to v rozhodnutí?** Najdi konkrétní bod odůvodnění, který to říká.
@@ -464,10 +521,18 @@ Vypiš výsledek v tomhle členění:
 *Délka: N znaků*
 
 ---
-💬 **TEXT PRVNÍHO KOMENTÁŘE**
+💬 **TEXT PRVNÍHO KOMENTÁŘE NA LINKEDIN**
 *(vložte hned po publikaci příspěvku)*
 
 🔗 Rozhodnutí [orgán]: [plná URL detailní stránky]
+
+---
+📷 **TEXT PRO INSTAGRAM**
+*(zkrácená verze, bez odkazu)*
+
+[instagramový text]
+
+*Délka: N znaků*
 
 ---
 🖼️ **TEXTY PRO CANVA SLIDES**
@@ -591,9 +656,10 @@ $title = "Tip z praxe — $(Get-Date -Format 'dd.MM.yyyy') — [předmět, max 6
 gh issue create --repo Agillis24/uohs_marketing --title $title --label "tip-z-praxe" --body-file "$scratch\issue_body.md"
 ```
 
-Tělo Issue obsahuje tabulku s metadaty rozhodnutí, celý text příspěvku
-v bloku kódu, text prvního komentáře, obálku a všechny slidy, odkaz
-na detail na webu ÚOHS a odkaz na vyrobený carousel v Canvě ze Step 11.
+Tělo Issue obsahuje tabulku s metadaty rozhodnutí, celý text LinkedIn
+příspěvku v bloku kódu, text prvního komentáře, zkrácenou verzi pro Instagram
+v samostatném bloku kódu, obálku a všechny slidy, odkaz na detail na webu
+ÚOHS a odkaz na vyrobený carousel v Canvě ze Step 11.
 
 Po založení vypiš uživateli URL Issue.
 
