@@ -616,13 +616,22 @@ Prázdný řetězec projít nemusí.
   vyhrazený mátovému zvýraznění, krémový text běží vždy normálně. Platí to
   pro slidy 2 až předposlední. Po naplnění si to na vráceném náhledu ověř,
   a když nějaký krémový úsek vyšel tučně, řekni to uživateli, ať to opraví.
-- **Tučnost přetéká přes hranici úseků, ale jen na určitém místě.**
-  Když za mátovým tučným úsekem následuje krémový **bez oddělovací mezery
-  mezi nimi**, krémový si tučný řez vezme. Tam, kde je mezi nimi oddělovač
-  (třeba `. `), k tomu nedochází. Přes API to nespravíš, `format_text`
-  umí nastavit řez jen celému textovému poli a tím bys smazal i mátové
-  zvýraznění. Trvalé řešení je v šabloně, buď oddělovací úsek za každým
-  mátovým, nebo aby žádný krémový úsek nebyl uložený jako tučný.
+- **Tučnost přetéká, a příčina je v struktuře úseků, ne v jejich řezu.**
+  Když za mátovým tučným úsekem následuje krémový **bez bílého oddělovacího
+  úseku mezi nimi**, krémový si po nahrazení vezme tučný řez. A to i tehdy,
+  když je v šabloně uložený jako normální. Tam, kde mezi nimi oddělovač je
+  (třeba samostatné `. ` v bílé), k přetečení nedochází. Ověřeno na obou
+  variantách.
+
+  **Před plněním si to zkontroluj.** Projdi úseky každé stránky a najdi
+  místa, kde po mátovém tučném úseku jde rovnou krémový. Na takové stránce
+  přetečení nastane a ty s tím přes API nic nesvedeš, `format_text` umí
+  nastavit řez jen celému poli a smazal bys tím zvýraznění. Napiš uživateli,
+  kterých stránek se to týká, ať to po doplnění textu odklikne.
+
+  Trvalé řešení je v šabloně: všechny stránky se slidy mají mít stejnou
+  strukturu úseků, tedy krémový, bílý oddělovač, mátový, bílý oddělovač,
+  krémový. Když narazíš na stránku, která ji nemá, řekni to uživateli.
 - **Delší text přeteče stránku.** Písmo je 54 bodů a pole má 960 bodů šířky,
   takže se na stránku vejde zhruba 260 znaků pohodlně a 400 na hraně. Drž se
   délky ze Step 8 a je to bez problému.
